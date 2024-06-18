@@ -1,0 +1,51 @@
+[gd_scene load_steps=7 format=3 uid="uid://ne5xdw14gvav"]
+
+[ext_resource type="Script" path="res://Scripts/Bone.cs" id="1_bqgcp"]
+[ext_resource type="Texture2D" uid="uid://de5wrnyekxsbl" path="res://Textures/Bone.png" id="1_bucy0"]
+[ext_resource type="AudioStream" uid="uid://d14h1e6dfx4ux" path="res://Sounds/Shoot.mp3" id="3_vxp1y"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pw20g"]
+size = Vector2(15, 5)
+
+[sub_resource type="Gradient" id="Gradient_stpod"]
+offsets = PackedFloat32Array(0, 0.724409)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_7jmg6"]
+gradient = SubResource("Gradient_stpod")
+width = 128
+height = 128
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[node name="Bone" type="Area2D" groups=["attack"]]
+top_level = true
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_bqgcp")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_bucy0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, -0.5)
+shape = SubResource("RectangleShape2D_pw20g")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+autostart = true
+
+[node name="SoundPlay" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_vxp1y")
+volume_db = -20.0
+autoplay = true
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+scale = Vector2(0.265625, 0.25)
+color = Color(0.46346, 0.966904, 0.394864, 1)
+energy = 2.76
+shadow_enabled = true
+texture = SubResource("GradientTexture2D_7jmg6")
+
+[connection signal="timeout" from="Timer" to="." method="OnTimerTimeout"]

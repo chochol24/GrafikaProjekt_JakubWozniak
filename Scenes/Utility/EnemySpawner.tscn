@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=3 uid="uid://c6o3oy5hcr10b"]
+
+[ext_resource type="Script" path="res://Scripts/EnemySpawner.cs" id="1_hsk0p"]
+[ext_resource type="PackedScene" uid="uid://b0dstc20kc1ej" path="res://Scenes/EnemyOrc.tscn" id="2_ijxs0"]
+[ext_resource type="Script" path="res://Scripts/SpawnInfo.cs" id="3_k52yd"]
+
+[sub_resource type="Resource" id="Resource_2cpg8"]
+script = ExtResource("3_k52yd")
+timeStart = 0
+timeEnd = 5
+enemy = ExtResource("2_ijxs0")
+enemyNumber = 3
+enemySpawnDelay = 1
+
+[sub_resource type="Resource" id="Resource_6ohds"]
+script = ExtResource("3_k52yd")
+timeStart = 5
+timeEnd = 30
+enemy = ExtResource("2_ijxs0")
+enemyNumber = 5
+enemySpawnDelay = 1
+
+[node name="EnemySpawner" type="Node2D"]
+script = ExtResource("1_hsk0p")
+spawns = [SubResource("Resource_2cpg8"), SubResource("Resource_6ohds")]
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="OnTimerTimeout"]

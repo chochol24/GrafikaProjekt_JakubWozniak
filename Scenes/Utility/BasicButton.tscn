@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://4id7b7dggmbk"]
+
+[ext_resource type="Script" path="res://Scripts/BasicButton.cs" id="1_dotv6"]
+
+[node name="Button" type="Button"]
+custom_minimum_size = Vector2(80, 30)
+offset_right = 8.0
+offset_bottom = 8.0
+text = "Example
+"
+script = ExtResource("1_dotv6")
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

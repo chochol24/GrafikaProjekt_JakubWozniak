@@ -1,0 +1,48 @@
+[gd_scene load_steps=3 format=3 uid="uid://dcravlat58i3j"]
+
+[ext_resource type="PackedScene" uid="uid://4id7b7dggmbk" path="res://Scenes/Utility/BasicButton.tscn" id="1_lr1ei"]
+[ext_resource type="Script" path="res://Scripts/Menu.cs" id="1_lrklk"]
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_lrklk")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(16.2321, 9.50227)
+color = Color(0.556704, 0.492635, 0.330641, 1)
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_right = 640.0
+offset_bottom = 100.0
+theme_override_font_sizes/font_size = 40
+text = "Projekt Grafika"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PlayBTN" parent="." instance=ExtResource("1_lr1ei")]
+layout_mode = 0
+offset_left = 280.0
+offset_top = 250.0
+offset_right = 360.0
+offset_bottom = 281.0
+text = "Play"
+
+[node name="ExitBTN" parent="." instance=ExtResource("1_lr1ei")]
+layout_mode = 0
+offset_left = 280.0
+offset_top = 290.0
+offset_right = 360.0
+offset_bottom = 321.0
+text = "Exit"
+
+[connection signal="ClickEnd" from="PlayBTN" to="." method="_on_play_btn_click_end"]
+[connection signal="ClickEnd" from="ExitBTN" to="." method="_on_exit_btn_click_end"]

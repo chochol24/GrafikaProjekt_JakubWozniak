@@ -1,0 +1,58 @@
+[gd_scene load_steps=3 format=3 uid="uid://bal1b2mjju2at"]
+
+[ext_resource type="Script" path="res://Scripts/ItemOption.cs" id="1_5ti3m"]
+[ext_resource type="Texture2D" uid="uid://c0pio1nxh1bb2" path="res://Textures/BoneSword.png" id="1_dcnv7"]
+
+[node name="ItemOption" type="ColorRect"]
+custom_minimum_size = Vector2(180, 50)
+offset_right = 180.0
+offset_bottom = 50.0
+color = Color(0.525101, 0.525101, 0.525101, 1)
+script = ExtResource("1_5ti3m")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 26.0
+offset_bottom = 26.0
+color = Color(0, 0, 0, 1)
+
+[node name="ItemIcon" type="TextureRect" parent="ColorRect"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 1.0
+offset_right = 29.0
+offset_bottom = 31.0
+scale = Vector2(0.753365, 0.74)
+texture = ExtResource("1_dcnv7")
+
+[node name="LabelName" type="Label" parent="."]
+layout_mode = 0
+offset_left = 39.0
+offset_top = 2.559
+offset_right = 86.0
+offset_bottom = 25.559
+text = "Bone"
+horizontal_alignment = 1
+
+[node name="LabelDescription" type="Label" parent="."]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 27.0
+offset_right = 166.0
+offset_bottom = 48.0
+theme_override_font_sizes/font_size = 8
+text = "1/2 element of bonus arrow"
+
+[node name="LabelLevel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 130.0
+offset_top = 3.0
+offset_right = 174.0
+offset_bottom = 26.0
+theme_override_font_sizes/font_size = 12
+text = "Level: 1"
+
+[connection signal="mouse_entered" from="." to="." method="OnMouseEntered"]
+[connection signal="mouse_exited" from="." to="." method="OnMouseExited"]

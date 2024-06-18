@@ -1,0 +1,73 @@
+[gd_scene load_steps=14 format=3 uid="uid://cdt0fiypwsmea"]
+
+[ext_resource type="Texture2D" uid="uid://jvv3k87uyapx" path="res://Textures/Floor.png" id="1_23cff"]
+[ext_resource type="PackedScene" uid="uid://ctdn7spilfalr" path="res://Scenes/Player.tscn" id="2_p2nwm"]
+[ext_resource type="PackedScene" uid="uid://c6o3oy5hcr10b" path="res://Scenes/Utility/EnemySpawner.tscn" id="3_7cpuk"]
+[ext_resource type="PackedScene" uid="uid://b0dstc20kc1ej" path="res://Scenes/EnemyOrc.tscn" id="4_fv128"]
+[ext_resource type="Script" path="res://Scripts/SpawnInfo.cs" id="5_cf7f2"]
+[ext_resource type="PackedScene" uid="uid://br7y02ritsghc" path="res://Scenes/EnemyOrcRogue.tscn" id="6_0jk40"]
+[ext_resource type="PackedScene" uid="uid://mq6cvxqpfn5u" path="res://Scenes/EnemyMageSkeleton.tscn" id="7_nmgkb"]
+
+[sub_resource type="Resource" id="Resource_2cpg8"]
+script = ExtResource("5_cf7f2")
+timeStart = 0
+timeEnd = 30
+enemy = ExtResource("4_fv128")
+enemyNumber = 1
+enemySpawnDelay = 0
+
+[sub_resource type="Resource" id="Resource_6ohds"]
+script = ExtResource("5_cf7f2")
+timeStart = 30
+timeEnd = 210
+enemy = ExtResource("4_fv128")
+enemyNumber = 2
+enemySpawnDelay = 0
+
+[sub_resource type="Resource" id="Resource_2shdc"]
+script = ExtResource("5_cf7f2")
+timeStart = 60
+timeEnd = 180
+enemy = ExtResource("6_0jk40")
+enemyNumber = 1
+enemySpawnDelay = 0
+
+[sub_resource type="Resource" id="Resource_rwfju"]
+script = ExtResource("5_cf7f2")
+timeStart = 120
+timeEnd = 150
+enemy = ExtResource("7_nmgkb")
+enemyNumber = 1
+enemySpawnDelay = 0
+
+[sub_resource type="Resource" id="Resource_pwyme"]
+script = ExtResource("5_cf7f2")
+timeStart = 200
+timeEnd = 300
+enemy = ExtResource("6_0jk40")
+enemyNumber = 2
+enemySpawnDelay = 0
+
+[sub_resource type="Resource" id="Resource_8lj5d"]
+script = ExtResource("5_cf7f2")
+timeStart = 210
+timeEnd = 300
+enemy = ExtResource("7_nmgkb")
+enemyNumber = 2
+enemySpawnDelay = 0
+
+[node name="World" type="Node2D"]
+
+[node name="Background" type="Sprite2D" parent="."]
+texture_repeat = 2
+texture = ExtResource("1_23cff")
+region_enabled = true
+region_rect = Rect2(0, 0, 4000, 4000)
+
+[node name="Player" parent="." instance=ExtResource("2_p2nwm")]
+
+[node name="EnemySpawner" parent="." instance=ExtResource("3_7cpuk")]
+spawns = [SubResource("Resource_2cpg8"), SubResource("Resource_6ohds"), SubResource("Resource_2shdc"), SubResource("Resource_rwfju"), SubResource("Resource_pwyme"), SubResource("Resource_8lj5d")]
+
+[node name="Loot" type="Node2D" parent="." groups=["loot"]]
+scale = Vector2(1.25913, 1.29456)

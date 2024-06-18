@@ -1,0 +1,48 @@
+[gd_scene load_steps=7 format=3 uid="uid://davxfr5nbc05a"]
+
+[ext_resource type="Texture2D" uid="uid://cn7h7ut74nw74" path="res://Textures/GreenGem.png" id="1_1xb8n"]
+[ext_resource type="Script" path="res://Scripts/ExperienceGem.cs" id="1_8tv3g"]
+[ext_resource type="AudioStream" uid="uid://dnsoy430pro4u" path="res://Sounds/collect.mp3" id="3_ag1hg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_faw4b"]
+size = Vector2(12, 19)
+
+[sub_resource type="Gradient" id="Gradient_k8f65"]
+offsets = PackedFloat32Array(0, 0.790598)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_hry1m"]
+gradient = SubResource("Gradient_k8f65")
+width = 22
+height = 22
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[node name="ExperienceGem" type="Area2D" groups=["loot"]]
+scale = Vector2(0.5, 0.5)
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("1_8tv3g")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_1xb8n")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_faw4b")
+
+[node name="CollectSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_ag1hg")
+volume_db = -35.0
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+energy = 2.5
+shadow_enabled = true
+texture = SubResource("GradientTexture2D_hry1m")
+
+[node name="PulsatingTimer" type="Timer" parent="."]
+wait_time = 0.05
+autostart = true
+
+[connection signal="finished" from="CollectSound" to="." method="OnCollectSoundFinished"]
+[connection signal="timeout" from="PulsatingTimer" to="." method="OnPulsatingTimerTimeout"]

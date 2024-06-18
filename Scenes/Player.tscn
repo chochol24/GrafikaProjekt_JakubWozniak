@@ -1,0 +1,189 @@
+[gd_scene load_steps=14 format=3 uid="uid://ctdn7spilfalr"]
+
+[ext_resource type="Script" path="res://Scripts/Player.cs" id="1_gc3we"]
+[ext_resource type="Texture2D" uid="uid://b7fwimenx5j72" path="res://Textures/Player.png" id="1_xd03y"]
+[ext_resource type="PackedScene" uid="uid://dehref8loemdf" path="res://Scenes/Utility/HurtBox.tscn" id="3_c2y5b"]
+[ext_resource type="Texture2D" uid="uid://qtbfp88dhsjv" path="res://Textures/exp_background.png" id="4_nc7xq"]
+[ext_resource type="Texture2D" uid="uid://brf381ud67tet" path="res://Textures/exp_progress.png" id="5_iied4"]
+[ext_resource type="Texture2D" uid="uid://g1f2kt43wine" path="res://Textures/healthbar.png" id="6_lnmm8"]
+[ext_resource type="Texture2D" uid="uid://du6emxao6cbph" path="res://Textures/health.png" id="7_lqfx0"]
+[ext_resource type="PackedScene" uid="uid://4id7b7dggmbk" path="res://Scenes/Utility/BasicButton.tscn" id="8_xb21o"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8u3hf"]
+radius = 5.0
+height = 24.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c8vfn"]
+size = Vector2(11.9729, 26)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_w6oil"]
+radius = 374.021
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7futm"]
+radius = 50.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mm4bm"]
+
+[node name="Player" type="CharacterBody2D" groups=["player"]]
+motion_mode = 1
+script = ExtResource("1_gc3we")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_xd03y")
+hframes = 4
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, 0)
+scale = Vector2(1.02974, 0.932945)
+shape = SubResource("CapsuleShape2D_8u3hf")
+
+[node name="WalkTimer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[node name="HurtBox" parent="." instance=ExtResource("3_c2y5b")]
+scale = Vector2(1.00226, 1.00785)
+collision_mask = 2
+
+[node name="CollisionShape2D" parent="HurtBox" index="0"]
+position = Vector2(0.997745, 2)
+shape = SubResource("RectangleShape2D_c8vfn")
+
+[node name="Attack" type="Node2D" parent="."]
+
+[node name="BoneTimer" type="Timer" parent="Attack"]
+wait_time = 1.5
+
+[node name="BoneAttackTimer" type="Timer" parent="Attack/BoneTimer"]
+wait_time = 0.15
+
+[node name="EnemyDetectionArea" type="Area2D" parent="."]
+visible = false
+collision_layer = 4
+collision_mask = 4
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyDetectionArea"]
+shape = SubResource("CircleShape2D_w6oil")
+
+[node name="GrabArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GrabArea"]
+shape = SubResource("CircleShape2D_7futm")
+
+[node name="CollectArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollectArea"]
+shape = SubResource("CircleShape2D_mm4bm")
+
+[node name="GUILayer" type="CanvasLayer" parent="."]
+
+[node name="GUI" type="Control" parent="GUILayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 640.0
+offset_bottom = 360.0
+
+[node name="HealthBar" type="TextureProgressBar" parent="GUILayer/GUI"]
+layout_mode = 0
+offset_left = 304.0
+offset_top = 200.0
+offset_right = 336.0
+offset_bottom = 208.0
+texture_over = ExtResource("6_lnmm8")
+texture_progress = ExtResource("7_lqfx0")
+
+[node name="ExperienceBar" type="TextureProgressBar" parent="GUILayer/GUI"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture_under = ExtResource("4_nc7xq")
+texture_progress = ExtResource("5_iied4")
+
+[node name="LevelLabel" type="Label" parent="GUILayer/GUI/ExperienceBar"]
+layout_mode = 0
+offset_left = 540.0
+offset_right = 640.0
+offset_bottom = 23.0
+text = "Level: 1"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="LevelUp" type="Panel" parent="GUILayer/GUI"]
+process_mode = 2
+layout_mode = 0
+offset_left = 800.0
+offset_top = 50.0
+offset_right = 1000.0
+offset_bottom = 300.0
+
+[node name="LevelUpLabel" type="Label" parent="GUILayer/GUI/LevelUp"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "LEVEL UP !!!
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="UpgradeOptions" type="VBoxContainer" parent="GUILayer/GUI/LevelUp"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 50.0
+offset_right = 190.0
+offset_bottom = 100.0
+
+[node name="DeathPanel" type="Panel" parent="GUILayer/GUI"]
+process_mode = 2
+visible = false
+layout_mode = 0
+offset_left = 197.0
+offset_top = -245.0
+offset_right = 397.0
+offset_bottom = 5.0
+
+[node name="ResultLabel" type="Label" parent="GUILayer/GUI/DeathPanel"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Result"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MenuButton" parent="GUILayer/GUI/DeathPanel" instance=ExtResource("8_xb21o")]
+layout_mode = 0
+offset_left = 60.0
+offset_top = 200.0
+offset_right = 140.0
+offset_bottom = 231.0
+text = "Menu"
+
+[node name="LabelTimer" type="Label" parent="GUILayer/GUI"]
+layout_mode = 0
+offset_left = 280.0
+offset_top = 20.0
+offset_right = 360.0
+offset_bottom = 48.0
+theme_override_font_sizes/font_size = 20
+text = "00:00"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="Hurt" from="HurtBox" to="." method="OnHurtBoxHurt"]
+[connection signal="timeout" from="Attack/BoneTimer" to="." method="OnBoneTimerTimeout"]
+[connection signal="timeout" from="Attack/BoneTimer/BoneAttackTimer" to="." method="OnBoneAttackTimerTimeout"]
+[connection signal="body_entered" from="EnemyDetectionArea" to="." method="OnEnemyDetectionAreaBodyEntered"]
+[connection signal="body_exited" from="EnemyDetectionArea" to="." method="OnEnemyDetectionAreaBodyExited"]
+[connection signal="area_entered" from="GrabArea" to="." method="OnGrabAreaAreaEntered"]
+[connection signal="area_entered" from="CollectArea" to="." method="OnCollectAreaAreaEntered"]
+[connection signal="ClickEnd" from="GUILayer/GUI/DeathPanel/MenuButton" to="." method="OnMenuButtonClickEnd"]
+
+[editable path="HurtBox"]
